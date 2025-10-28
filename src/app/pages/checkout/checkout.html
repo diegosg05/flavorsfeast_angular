@@ -1,0 +1,275 @@
+<section
+  class="bg-[rgba(255,255,211,0.88)] antialiased flex flex-col min-h-screen justify-center pt-30 md:pt-0"
+>
+  <div>
+    <div class="mx-auto max-w-7xl px-4 2xl:px-0">
+      <div class="mx-auto max-w-5xl">
+        <h2 class="text-xl font-semibold text-gray-900 sm:text-2xl">
+          Formulario de Pago
+        </h2>
+        <div class="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12">
+          <form
+            [formGroup]="paymentForm"
+            (submit)="handleSubmit()"
+            class="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6 lg:max-w-xl lg:p-8"
+          >
+            <div class="mb-6 grid grid-cols-2 gap-4">
+              <div class="col-span-2 sm:col-span-1">
+                <label
+                  for="full_name"
+                  class="mb-2 block text-sm font-medium text-gray-900"
+                >
+                  Nombre del titular*
+                </label>
+                <input
+                  type="text"
+                  id="full_name"
+                  class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
+                  placeholder="Diego Sanchez"
+                  formControlName="fullName"
+                  required
+                />
+                @if (paymentForm.get('fullName')?.touched &&
+                paymentForm.get('fullName')?.errors) {
+                <div
+                  class="flex items-center my-2 text-xs text-red-800 rounded-lg select-none"
+                  role="alert"
+                >
+                  <svg
+                    class="shrink-0 inline size-3 me-1"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+                    />
+                  </svg>
+                  <span class="sr-only">Info</span>
+                  @if(paymentForm.get('fullName')?.hasError('required')){
+                  <div class="font-medium">Ingrese el nombre del titular</div>
+                  }
+                </div>
+                }
+              </div>
+
+              <div class="col-span-2 sm:col-span-1">
+                <label
+                  for="card-number-input"
+                  class="mb-2 block text-sm font-medium text-gray-900"
+                >
+                  Número de tarjeta*
+                </label>
+                <input
+                  type="text"
+                  id="card-number-input"
+                  class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pe-10 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
+                  placeholder="xxxx-xxxx-xxxx-xxxx"
+                  formControlName="card"
+                  minlength="16"
+                  maxlength="16"
+                  (input)="handleCardInput()"
+                  required
+                />
+                @if (paymentForm.get('card')?.touched &&
+                paymentForm.get('card')?.errors) {
+                <div
+                  class="flex items-center my-2 text-xs text-red-800 rounded-lg select-none"
+                  role="alert"
+                >
+                  <svg
+                    class="shrink-0 inline size-3 me-1"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+                    />
+                  </svg>
+                  <span class="sr-only">Info</span>
+                  @if(paymentForm.get('card')?.hasError('required')){
+                  <div class="font-medium">Ingrese su tarjeta</div>
+                  } @if (paymentForm.get('card')?.hasError('pattern')) {
+                  <div class="font-medium">
+                    La tarjeta ingresada no es válida
+                  </div>
+                  }
+                </div>
+                }
+              </div>
+
+              <div class="col-span-2 sm:col-span-1">
+                <label
+                  for="card-expiration-input"
+                  class="mb-2 block text-sm font-medium text-gray-900"
+                  >Fecha de expiración*
+                </label>
+                <input
+                  type="text"
+                  id="card-expiration-input"
+                  class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pe-10 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
+                  formControlName="expiration"
+                  placeholder="08-2025"
+                  readonly
+                  required
+                  #expiration
+                />
+                @if (paymentForm.get('expiration')?.touched &&
+                paymentForm.get('expiration')?.errors) {
+                <div
+                  class="flex items-center my-2 text-xs text-red-800 rounded-lg select-none"
+                  role="alert"
+                >
+                  <svg
+                    class="shrink-0 inline size-3 me-1"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+                    />
+                  </svg>
+                  <span class="sr-only">Info</span>
+                  @if(paymentForm.get('expiration')?.hasError('required')){
+                  <div class="font-medium">Ingrese la fecha de expiración</div>
+                  }
+                </div>
+                }
+              </div>
+              <div>
+                <label
+                  for="cvv-input"
+                  class="mb-2 flex items-center gap-1 text-sm font-medium text-gray-900"
+                >
+                  CVV*
+                  <button
+                    data-tooltip-target="cvv-desc"
+                    data-tooltip-trigger="hover"
+                    class="text-gray-400 hover:text-gray-900"
+                  >
+                    <svg
+                      class="h-4 w-4"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                  <div
+                    id="cvv-desc"
+                    role="tooltip"
+                    class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300"
+                  >
+                    Los últimos 3 dígitos detrás de la tarjeta
+                    <div class="tooltip-arrow" data-popper-arrow></div>
+                  </div>
+                </label>
+                <input
+                  type="text"
+                  id="cvv-input"
+                  aria-describedby="helper-text-explanation"
+                  class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
+                  placeholder="•••"
+                  maxlength="3"
+                  formControlName="cvv"
+                  (input)="handleCvvInput()"
+                  required
+                />
+                @if (paymentForm.get('cvv')?.touched &&
+                paymentForm.get('cvv')?.errors) {
+                <div
+                  class="flex items-center my-2 text-xs text-red-800 rounded-lg select-none"
+                  role="alert"
+                >
+                  <svg
+                    class="shrink-0 inline size-3 me-1"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+                    />
+                  </svg>
+                  <span class="sr-only">Info</span>
+                  @if(paymentForm.get('cvv')?.hasError('required')){
+                  <div class="font-medium">Ingrese la clave</div>
+                  } @if (paymentForm.get('cvv')?.hasError('pattern')) {
+                  <div class="font-medium">La clave no es válida</div>
+                  }
+                </div>
+                }
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="flex w-full items-center justify-center rounded-lg bg-amber-400 px-5 py-2.5 text-sm font-medium text-white hover:bg-amber-200 focus:outline-none focus:ring-4 focus:ring-primary-300 cursor-pointer"
+            >
+              Realizar pago
+            </button>
+          </form>
+
+          <div class="mt-6 grow sm:mt-8 lg:mt-0">
+            <div
+              class="space-y-4 rounded-lg border border-gray-100 bg-gray-50 p-6"
+            >
+              <div class="space-y-2">
+                <dl class="flex items-center justify-between gap-4">
+                  <dt class="text-base font-normal text-gray-500">
+                    Total original
+                  </dt>
+                  <dd class="text-base font-medium text-gray-900">S/ {{bills.subtotal}}</dd>
+                </dl>
+
+                <dl class="flex items-center justify-between gap-4">
+                  <dt class="text-base font-normal text-gray-500">
+                    5% adicional
+                  </dt>
+                  <dd class="text-base font-medium text-gray-900">S/ {{bills.tax}}</dd>
+                </dl>
+              </div>
+
+              <dl
+                class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2"
+              >
+                <dt class="text-base font-bold text-gray-900">Total a pagar</dt>
+                <dd class="text-base font-bold text-gray-900">S/ {{bills.total}}</dd>
+              </dl>
+            </div>
+
+            <div class="mt-6 flex items-center justify-center gap-8">
+              <img
+                class="h-8 w-auto"
+                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/visa.svg"
+                alt=""
+              />
+              <img
+                class="h-8 w-auto"
+                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/mastercard.svg"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+
+        <p class="mt-6 text-center text-gray-500 sm:mt-8 lg:text-left">
+          Pago procesado por Paddle de Flavors Feast - Peru
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+

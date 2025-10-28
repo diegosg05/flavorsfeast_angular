@@ -1,0 +1,146 @@
+<main>
+  <div>
+    <section style="background: url(/wallpaper.jpg) center / cover">
+      <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
+        <div
+          class="w-full bg-[rgba(233,233,178,0.88)] rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0"
+        >
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <h1 class="text-center text-2xl font-light uppercase text-black md:text-3xl">
+              Reservación
+            </h1>
+            <form
+              class="space-y-4 md:space-y-6"
+              [formGroup]="reserveForm"
+              (submit)="handleSubmit()"
+            >
+              <div class="text-center">
+                <select
+                  id="underline_select"
+                  required
+                  formControlName="location"
+                  class="inline-block py-2.5 px-10 text-center text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-900 appearance-none focus:outline-none focus:ring-0"
+                >
+                  <option value="" selected disabled>Selecciona una sede</option>
+                  <option value="Pueblo Libre">Pueblo Libre</option>
+                  <option value="Miraflores">Miraflores</option>
+                  <option value="San Miguel">San Miguel</option>
+                  <option value="La Molina">La Molina</option>
+                  <option value="San Isidro">San Isidro</option>
+                </select>
+                @if (reserveForm.get('location')?.touched && reserveForm.get('location')?.errors) {
+                <div
+                  class="flex justify-center my-2 text-xs text-red-800 rounded-lg select-none"
+                  role="alert"
+                >
+                  <svg
+                    class="shrink-0 inline size-3 me-1"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+                    />
+                  </svg>
+                  <span class="sr-only">Info</span>
+                  @if(reserveForm.get('location')?.hasError('required')){
+                  <div class="font-medium">Ingrese la sede</div>
+                  }
+                </div>
+                }
+              </div>
+              <div class="flex">
+                <div class="flex-1 text-center mx-4">
+                  <div class="text-lg">
+                    <div
+                      class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-900 appearance-none focus:outline-none focus:ring-0"
+                    >
+                      <button
+                        type="button"
+                        (click)="reducePersons()"
+                        class="px-1 font-medium select-none hover:cursor-pointer"
+                      >
+                        -
+                      </button>
+                      <span>{{ persons }} personas</span>
+                      <button
+                        type="button"
+                        (click)="addPersons()"
+                        class="px-1 font-medium select-none hover:cursor-pointer"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex-1 text-center mx-4">
+                  <div>
+                    <div>
+                      <input
+                        readonly
+                        id="date"
+                        type="text"
+                        class="block py-2.5 px-0 w-full text-center text-sm text-gray-900 placeholder:text-gray-900 bg-transparent border-0 border-b-2 border-gray-900 appearance-none focus:outline-none focus:ring-0"
+                        placeholder="dd/mm"
+                        #dateReservationInput
+                        required
+                        formControlName="date"
+                      />
+                    </div>
+                  </div>
+                  @if (reserveForm.get('date')?.touched && reserveForm.get('date')?.errors) {
+                  <div
+                    class="flex items-center my-2 text-xs text-red-800 rounded-lg select-none"
+                    role="alert"
+                  >
+                    <svg
+                      class="shrink-0 inline size-3 me-1"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+                      />
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    @if(reserveForm.get('date')?.hasError('required')){
+                    <div class="font-medium">Ingrese la fecha</div>
+                    }
+                  </div>
+                  }
+                </div>
+              </div>
+              <div class="text-center mx-4">
+                <div>
+                  <input
+                    id="time"
+                    type="text"
+                    required
+                    readonly
+                    placeholder="hh:mm"
+                    formControlName="time"
+                    #timeReservationInput
+                    class="inline-block py-2.5 px-0 text-center text-sm text-gray-900 placeholder:text-gray-900 bg-transparent border-0 border-b-2 border-gray-900 appearance-none focus:outline-none focus:ring-0"
+                  />
+                </div>
+              </div>
+              <div class="text-center">
+                <button
+                  type="submit"
+                  [disabled]="this.reserveForm.invalid"
+                  class="uppercase cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed focus:outline-none shadow text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                >
+                  Confirmar Reservación
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

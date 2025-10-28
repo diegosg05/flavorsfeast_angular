@@ -1,0 +1,95 @@
+@let productsLocal = products();
+<main>
+  <div
+    class="banner-store flex flex-col justify-center items-center h-200 md:h-230"
+    style="background: url(images-header/banner-store.jpg) center / cover"
+  >
+    <img class="max-h-90" src="/favicon.ico" />
+    <h1 class="text-4xl md:text-5xl text-white font-Edu mt-10">Nuestra Tienda</h1>
+  </div>
+  <div class="flex flex-col items-center my-10">
+    <div class="w-11/12 lg:w-2/3 flex justify-between items-center bg-[#363636] py-1 px-4">
+      <h2 class="text-white text-2xl font-semibold">TIENDA</h2>
+      <div>
+        <a
+          routerLink="/micarrito"
+          class="border-0 cursor-pointer bg-transparent relative"
+        >
+          <svg
+            class="size-12 text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4 4a1 1 0 0 1 1-1h1.5a1 1 0 0 1 .979.796L7.939 6H19a1 1 0 0 1 .979 1.204l-1.25 6a1 1 0 0 1-.979.796H9.605l.208 1H17a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L5.686 5H5a1 1 0 0 1-1-1Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span
+            id="contadorproductos"
+            class="p-0.5 absolute right-0 bottom-0 text-white text-center bg-red-600 rounded-full size-7"
+            >{{ cartCount() }}</span
+          >
+        </a>
+      </div>
+    </div>
+    <section class="w-11/12 mt-5 mb-30 lg:w-2/3">
+      @for(products of productsLocal; track products.category){
+      <h2 class="text-2xl text-black font-bold my-15">{{ products.category }}</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+        @for (productActual of products.products; track productActual.uid) {
+        <div
+          class="flex flex-col bg-white border border-gray-200 rounded-lg shadow-sm my-5 md:my-0 md:h-60 md:flex-row hover:bg-gray-100"
+        >
+          <div class="flex-1 h-full">
+            <img
+              class="object-cover size-full rounded-t-lg md:rounded-none md:rounded-s-lg"
+              [src]="productActual.image"
+              [alt]="productActual.name"
+            />
+          </div>
+
+          <div class="flex-2 flex flex-col justify-between p-3 md:p-4">
+            <div>
+              <h5 class="text-xl mb-2 font-bold tracking-tight text-gray-900">
+                {{ productActual.name }}
+              </h5>
+              <p class="font-normal text-justify text-gray-700">
+                {{ productActual.description }}
+              </p>
+            </div>
+            <div class="flex justify-between items-center">
+              <p class="font-normal text-amber-600">S/ {{ productActual.price }}.00</p>
+              <div>
+                <button
+                  class="opacity-70 hover:cursor-pointer hover:opacity-100 transition-opacity duration-200 text-black"
+                  (click)="addProductToCart(productActual)"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="size-10"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+      }
+    </section>
+  </div>
+</main>

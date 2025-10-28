@@ -1,0 +1,53 @@
+@let userinfo = user$();
+<main class="py-[10em]">
+  <div class="flex">
+    <aside class="mx-4">
+      <div class="flex items-center">
+        <div>
+          <img src="/user-circle-icon.png" width="80" alt="User icon" />
+        </div>
+        <div>
+          <h1 class="text-2xl">Hola!</h1>
+          <p>{{ userinfo?.firstname }} {{ userinfo?.lastname }}</p>
+        </div>
+      </div>
+      <div>
+        <button type="button" routerLink="/mi-perfil/datos-personales" class="pe-4 cursor-pointer flex items-center border-b w-full border-b-gray-300 hover:bg-gray-100 transition-colors">
+          <div class="p-4">
+            <img src="/user-icon.png" width="20" alt="User Icon" />
+          </div>
+          <div>
+            <p>Datos Personales</p>
+          </div>
+        </button>
+        <button type="button" routerLink="/mi-perfil/cambiar-mi-clave" class="pe-4 cursor-pointer flex items-center border-b w-full border-b-gray-300 hover:bg-gray-100 transition-colors">
+          <div class="p-4">
+            <img src="/unlock-icon.png" width="20" alt="Unlock Icon" />
+          </div>
+          <div>
+            <p>Cambiar Contraseña</p>
+          </div>
+        </button>
+        <button type="button" routerLink="/mi-perfil/mis-compras" class="pe-4 cursor-pointer flex items-center border-b w-full border-b-gray-300 hover:bg-gray-100 transition-colors">
+          <div class="p-4">
+            <img src="/bag-icon.png" width="20" alt="Bag Icon" />
+          </div>
+          <div>
+            <p>Mis Compras</p>
+          </div>
+        </button>
+        <button type="button" routerLink="/mi-perfil/mis-reservaciones" class="pe-4 cursor-pointer flex items-center border-b w-full border-b-gray-300 hover:bg-gray-100 transition-colors">
+          <div class="p-4">
+            <img src="/paper-icon.png" width="20" alt="Paper Icon" />
+          </div>
+          <div>
+            <p>Mis Reservas</p>
+          </div>
+        </button>
+      </div>
+    </aside>
+    <section class="flex-1 p-4 border border-gray-200 mx-4">
+        <router-outlet></router-outlet>
+    </section>
+  </div>
+</main>

@@ -1,0 +1,22 @@
+.option::before{
+    content: '';
+    position: absolute;
+    background-color: #000;
+    bottom: -6px;
+    left: 0;
+    width: 0;
+    height: 2px;
+}
+
+.option:hover::before{
+    animation: animationLine 0.7s forwards;
+}
+
+@keyframes animationLine {
+    from{
+        width: 0;
+    }
+    to{
+        width: 100%;
+    }
+}

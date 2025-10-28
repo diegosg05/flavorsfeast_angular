@@ -1,0 +1,39 @@
+@let reservations = reservation$();
+<div>
+  <h2 class="text-xl mb-5">Mis Reservas</h2>
+</div>
+<div>
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3">ID</th>
+          <th scope="col" class="px-6 py-3">Fecha</th>
+          <th scope="col" class="px-6 py-3">Hora</th>
+          <th scope="col" class="px-6 py-3">Cantidad de Invitados</th>
+          <th scope="col" class="px-6 py-3">Local</th>
+          <th scope="col" class="px-6 py-3">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (reservation of reservations?.data; track reservation.uid) {
+          <tr
+            class="bg-white border-b border-gray-200 hover:bg-gray-50"
+          >
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+            >
+              {{ reservation.uid }}
+            </th>
+            <td class="px-6 py-4">{{ reservation.date }}</td>
+            <td class="px-6 py-4">{{ reservation.time }}</td>
+            <td class="px-6 py-4">{{ reservation.persons }}</td>
+            <td class="px-6 py-4">{{ reservation.location }}</td>
+            <td class="px-6 py-4">{{ reservation.state }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

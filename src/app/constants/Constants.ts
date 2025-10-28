@@ -1,0 +1,1 @@
+export const API_BACKEND = "http://localhost:8051/flavorsfeastpe/api/v2.1";

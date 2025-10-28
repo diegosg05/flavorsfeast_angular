@@ -1,0 +1,116 @@
+@let auth = auth$();
+<nav class="fixed w-full bg-[rgba(254,243,198,0.84)] z-100">
+  <div
+    class="border-b border-black max-w-full flex flex-wrap items-center justify-between py-4 md:mx-20"
+  >
+    <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+      <img src="/favicon.ico" class="w-30" alt="Flavors Feast" />
+    </a>
+    <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+      @if (auth!!) {
+      <button
+        type="button"
+        class="flex text-sm bg-gray-800 rounded-full cursor-pointer md:me-0"
+        id="user-menu-button"
+        aria-expanded="false"
+        data-dropdown-toggle="user-dropdown"
+        data-dropdown-placement="bottom"
+      >
+        <span class="sr-only">Open user menu</span>
+        <img class="size-12 rounded-full" src="/user-circle-icon.png" alt="user photo" />
+      </button>
+      <!-- Dropdown menu -->
+      <div
+        class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600"
+        id="user-dropdown"
+      >
+        <div class="px-4 py-3">
+          <span class="block text-sm text-gray-900 dark:text-white"
+            >{{ auth?.firstname }} {{ auth?.lastname }}</span
+          >
+          <span class="block text-sm text-gray-500 truncate dark:text-gray-400">{{
+            auth?.email
+          }}</span>
+        </div>
+        <ul class="py-2" aria-labelledby="user-menu-button">
+          <li>
+            <a routerLink="/mi-perfil" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >Ver perfil</a
+            >
+          </li>
+          <li>
+            <a
+              (click)="logout()"
+              class="block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100"
+              >Cerrar sesión</a
+            >
+          </li>
+        </ul>
+      </div>
+      } @else {
+      <button
+        type="button"
+        routerLink="/login"
+        class="text-white border border-white bg-yellow-400/70 hover:bg-yellow-500 cursor-pointer focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-lg px-8 py-2.5 text-center me-2 mb-2 transition-colors"
+      >
+        LOGIN
+      </button>
+      }
+      <button
+        data-collapse-toggle="navbar-user"
+        type="button"
+        class="inline-flex items-center p-2 w-10 h-10 justify-center cursor-pointer text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 transition-colors"
+        aria-controls="navbar-user"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg
+          class="w-5 h-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 17 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M1 1h15M1 7h15M1 13h15"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      class="items-center justify-between hidden w-full md:justify-end md:flex-1 md:flex md:w-auto md:me-10 md:order-1"
+      id="navbar-user"
+    >
+      <ul
+        class="flex flex-col text-lg p-4 md:p-0 uppercase tracking-wider mt-4 border rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0"
+      >
+        <li>
+          <a
+            href="https://marketplace.canva.com/EAF9b0hoPBE/2/0/1131w/canva-menu-de-comida-restaurante-moderno-fotogr%C3%A1fico-marr%C3%B3n-Chz14uZvuZo.jpg"
+            target="_blank"
+            class="inline-block cursor-pointer px-3 my-3 relative text-black rounded-sm md:mx-3 uppercase option md:px-2 md:py-1 md:my-0"
+            >CARTA</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/tienda"
+            class="inline-block cursor-pointer px-3 my-3 relative text-black rounded-sm md:mx-3 uppercase option md:px-2 md:py-1 md:my-0"
+            >TIENDA</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/reserve"
+            class="inline-block cursor-pointer px-3 my-3 relative text-black rounded-sm md:mx-3 uppercase option md:px-2 md:py-1 md:my-0"
+            >RESERVA</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

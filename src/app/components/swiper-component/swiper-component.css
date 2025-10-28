@@ -1,0 +1,11 @@
+#banner1{
+    background: url('../../../../public/images-carousel/banner-carousel-1.jpg') center / cover;
+}
+
+#banner2{
+    background: url('../../../../public/images-carousel/banner-carousel-2.jpg') center / cover;
+}
+
+#banner3{
+    background: url('../../../../public/images-carousel/banner-carousel-3.jpg') center / cover;
+}

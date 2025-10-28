@@ -1,0 +1,138 @@
+@let userinfo = user$();
+<div>
+  <h2 class="text-xl mb-5">Mis Datos Personales</h2>
+</div>
+<div>
+  <form class="max-w-full" [formGroup]="updateDataForm" (submit)="handleSubmit()">
+    <div class="grid grid-cols-3 gap-5">
+      <div class="relative w-full mb-5 group">
+        <label for="firstname" class="block text-gray-900"
+          >Nombre Completo <span class="text-red-600">*</span></label
+        >
+        <input
+          type="text"
+          id="firstname"
+          class="block py-2.5 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0"
+          placeholder="Diego Alberto"
+          formControlName="firstname"
+          required
+        />
+        @if (updateDataForm.get('firstname')?.errors && updateDataForm.get('firstname')?.touched) {
+        <div
+          class="flex items-center my-2 text-xs text-red-800 rounded-lg select-none"
+          role="alert"
+        >
+          <svg
+            class="shrink-0 inline size-3 me-1"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+            />
+          </svg>
+          <span class="sr-only">Info</span>
+          @if(updateDataForm.get('firstname')?.hasError('required')){
+          <div class="font-medium">Ingrese sus nombres completos</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="relative w-full mb-5 group">
+        <label for="lastname" class="block text-gray-900"
+          >Apellido Completo <span class="text-red-600">*</span></label
+        >
+        <input
+          type="text"
+          id="lastname"
+          formControlName="lastname"
+          class="block py-2.5 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0"
+          placeholder="Sanchez Garcia"
+          required
+        />
+        @if (updateDataForm.get('lastname')?.errors && updateDataForm.get('lastname')?.touched) {
+        <div
+          class="flex items-center my-2 text-xs text-red-800 rounded-lg select-none"
+          role="alert"
+        >
+          <svg
+            class="shrink-0 inline size-3 me-1"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+            />
+          </svg>
+          <span class="sr-only">Info</span>
+          @if(updateDataForm.get('lastname')?.hasError('required')){
+          <div class="font-medium">Ingrese sus apellidos completos</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="relative w-full mb-5 group">
+        <label for="phone" class="block text-gray-900"
+          >Número de Teléfono <span class="text-red-600">*</span></label
+        >
+        <input
+          type="text"
+          id="phone"
+          formControlName="phone"
+          class="block py-2.5 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0"
+          placeholder="+51 998 474 374"
+          required
+        />
+        @if (updateDataForm.get('phone')?.errors && updateDataForm.get('phone')?.touched) {
+        <div
+          class="flex items-center my-2 text-xs text-red-800 rounded-lg select-none"
+          role="alert"
+        >
+          <svg
+            class="shrink-0 inline size-3 me-1"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+            />
+          </svg>
+          <span class="sr-only">Info</span>
+          @if(updateDataForm.get('phone')?.hasError('required')){
+          <div class="font-medium">Ingrese su número de celular</div>
+          } @if(updateDataForm.get('phone')?.hasError('pattern') ||
+          updateDataForm.get('phone')?.hasError('maxlength')){
+          <div class="font-medium">El número es inválido</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="relative w-full mb-5 group">
+        <label for="email" class="block text-gray-900">Correo Electrónico</label>
+        <input
+          type="email"
+          disabled="disabled"
+          id="email"
+          [value]="userinfo?.email"
+          class="block py-2.5 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0"
+          placeholder="diegosg2706@gmail.com"
+        />
+      </div>
+    </div>
+    <div class="text-end">
+      <button
+        type="submit"
+        [disabled]="this.updateDataForm.invalid"
+        class="text-white cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+      >
+        Guardar cambios
+      </button>
+    </div>
+  </form>
+</div>

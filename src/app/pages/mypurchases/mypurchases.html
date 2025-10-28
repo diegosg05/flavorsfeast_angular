@@ -1,0 +1,39 @@
+@let purchases = purchases$();
+<div>
+  <h2 class="text-xl mb-5">Mis Compras</h2>
+</div>
+<div>
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3">ID</th>
+          <th scope="col" class="px-6 py-3">Fecha</th>
+          <th scope="col" class="px-6 py-3">Importe Total</th>
+          <th scope="col" class="px-6 py-3">Tipo</th>
+          <th scope="col" class="px-6 py-3">Dirección</th>
+          <th scope="col" class="px-6 py-3">Local</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (purchase of purchases?.data; track purchase.uid) {
+          <tr
+            class="bg-white border-b border-gray-200 hover:bg-gray-50"
+          >
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+            >
+              {{ purchase.uid }}
+            </th>
+            <td class="px-6 py-4">{{ purchase.date.substring(0, 10) }}</td>
+            <td class="px-6 py-4">S/. {{ purchase.subtotal }}</td>
+            <td class="px-6 py-4">{{ purchase.type }}</td>
+            <td class="px-6 py-4">{{ purchase.address }}</td>
+            <td class="px-6 py-4">{{ purchase.location }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
